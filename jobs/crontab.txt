@@ -1,0 +1,3 @@
+*/5 * * * * /bortfolio/trade_history.py
+5 0 * * * /bortfolio/exchange_rates.py
+5 * * * * /bortfolio/ftx_lending_report.py
