@@ -88,9 +88,10 @@ if __name__ == "__main__":
     )
 
     with conn.cursor() as curs:
-        curs.execute("select name, api_key, secret, coins from account")
+        curs.execute("select name, api_key, secret, coins, user_key from account")
         accounts = [
-            {"k": s[1], "s": s[2], "n": s[0], "c": s[3]} for s in list(curs.fetchall())
+            {"k": s[1], "s": s[2], "n": s[0], "c": s[3], "u": s[4]}
+            for s in list(curs.fetchall())
         ]
         for account in accounts:
             logger.debug("account %s", account)
@@ -104,15 +105,13 @@ if __name__ == "__main__":
             to_zone = tz.gettz("Asia/Taipei")
             interest_payments = lending_history[0 : len(coins)]
             for latest_interest in interest_payments:
+                logger.info("latest_interest %s", latest_interest)
+
                 date_time = (
                     parser.isoparse(latest_interest["time"])
                     .replace(tzinfo=from_zone)
                     .astimezone(to_zone)
                 )
-                # TODO
-                # past_one_hr = datetime.now() - timedelta(hours=1)
-                # if date_time < past_one_hr:
-                #     continue
 
                 coin = latest_interest["coin"]
                 proceeds = latest_interest["proceeds"]
@@ -132,6 +131,23 @@ if __name__ == "__main__":
                     )
                 )
                 logger.info("account %s %s", account["n"], message)
+
+                past_one_hr = datetime.timestamp(datetime.now() - timedelta(hours=1))
+
+                interest_payment_time = datetime.timestamp(
+                    parser.isoparse(latest_interest["time"])
+                )
+
+                if interest_payment_time > past_one_hr and account["u"] is not None:
+                    url = "https://api.pushover.net/1/messages.json"
+                    myobj = {
+                        "message": message,
+                        "user": account["u"],
+                        "token": environ.get("PUSH_OVER_API_KEY"),
+                    }
+
+                    x = requests.post(url, data=myobj)
+                    logger.info("requests %s", x)
 
             # submit lending offer with a the new balances
             balances = client._get("wallet/balances")
