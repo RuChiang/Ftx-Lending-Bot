@@ -3,3 +3,5 @@
 .DS_Store
 **/env
 **/logs
+.docker.env
+jobs/.env
