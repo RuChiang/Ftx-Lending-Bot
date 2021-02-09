@@ -13,7 +13,7 @@ this bot allows you to compund your interest payment into your margin lending ac
 ## Run
 
 ```
-docker-compose up
+docker-compose up --env-file .docker.env
 ```
 
 ## RUN DB SETUP
