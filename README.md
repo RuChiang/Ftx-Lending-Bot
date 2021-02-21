@@ -1,6 +1,6 @@
 # FTX Lending Compound bot
 
-this bot allows you to compund your interest payment into your margin lending account. Integrated with [pushover notification](https://pushover.net/) service, and (AWS logging service)[https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html]
+this bot allows you to compund your interest payment into your margin lending account. Integrated with [pushover notification](https://pushover.net/) service, and [AWS logging service](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html)
 
 ## Configs
 
