@@ -11,6 +11,11 @@ services:
     # - "5433:5432"
   job:
     build: jobs
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: ${AWSLOGS_REGION}
+        awslogs-group: ${AWSLOGS_GROUP}
     depends_on:
       - db
 # docker-compose --env-file .env db up
