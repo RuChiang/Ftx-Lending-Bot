@@ -156,10 +156,19 @@ if __name__ == "__main__":
                     logger.info(f"balance {balance}")
                     total_bal = balance["total"]
                     logger.info("lending out %s %s", total_bal, balance["coin"])
-                    client._post(
-                        "spot_margin/offers",
-                        {"coin": balance["coin"], "size": total_bal, "rate": 0.0000068},
-                    )
+
+                    try:
+                        client._post(
+                            "spot_margin/offers",
+                            {
+                                "coin": balance["coin"],
+                                "size": total_bal,
+                                "rate": 0.0000068,
+                            },
+                        )
+                    except Exception as e:
+                        logger.error("Fail to resubmit lending offer %s", str(e))
+
                 # send to line bot
 
     # x = requests.post(
