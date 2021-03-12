@@ -163,7 +163,7 @@ if __name__ == "__main__":
                             {
                                 "coin": balance["coin"],
                                 "size": total_bal,
-                                "rate": 0.0000068,
+                                "rate": 0.0000032,
                             },
                         )
                     except Exception as e:
