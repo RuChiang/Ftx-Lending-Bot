@@ -14,12 +14,14 @@ this bot allows you to compund your interest payment into your margin lending ac
 
 - .docker.env
 
-- jobs/.env (note when run with `docker-compose`, `POSTGRES_HOST` should be `db`)
+- jobs/.env: note when run with `docker-compose`, `POSTGRES_HOST` should be `db`
+
+- jobs/.env: PUSH_OVER_API_KEY should be your PushOver application key
 
 ## Run
 
 ```
-docker-compose up --env-file .docker.env
+docker-compose --env-file .docker.env up
 ```
 
 ## RUN DB SETUP
