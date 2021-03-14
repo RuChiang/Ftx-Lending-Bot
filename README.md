@@ -48,6 +48,13 @@ in `docker-compose.yml`
 
 ## Account setup
 
+First login to your db container, and db instance
+
+```
+docker exec -it lending-bot_db_1 bash
+psql -U app lending
+```
+
 Add your users' account info into the `account` table
 
 ```
